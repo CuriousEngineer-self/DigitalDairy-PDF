@@ -841,8 +841,8 @@ class DiaryGenerator:
                #     print(f"Creating day pages with seasonal backgrounds... ({day_count}/{total_days})")
                 self.create_day_page(c, month, day)
             # Add personal info pages
-                if hasattr(self, 'personal_info_manager'):
-                    self.personal_info_manager.generate_all_personal_info_pages(c)
+#            if hasattr(self, 'personal_info_manager'):
+#                self.personal_info_manager.generate_all_personal_info_pages(c)
 
         c.save()
         print(f"\n✨ Enhanced Diary generated successfully: {filename}")

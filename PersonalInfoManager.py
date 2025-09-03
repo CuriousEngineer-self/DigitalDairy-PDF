@@ -156,9 +156,9 @@ class PersonalInfoManager:
             c.setFillColor(colors["accent"])
             next_text = "Next →"
             next_width = c.stringWidth(next_text, "DancingScript-Bold", 16)
-            c.drawString(self.width - 50 - next_width, nav_y + 5, next_text)
+            c.drawString(self.width - 90 - next_width, nav_y + 5, next_text)
             next_link = f"personal_info_{current_page_num + 1}"
-            c.linkRect("", next_link, (self.width - 50 - next_width, nav_y, self.width - 50, nav_y + 20))
+            c.linkRect("", next_link, (self.width - 90 - next_width, nav_y, self.width - 90, nav_y + 20))
     
     def create_form_table(self, c, fields, start_y, colors):
         """Create a two-column form table with labels and input fields"""
@@ -217,7 +217,7 @@ class PersonalInfoManager:
         colors = SeasonalTheme.get_colors(season)
         
         # Draw seasonal background
-        self.diary_gen.draw_seasonal_background(c, current_month)
+#        self.diary_gen.draw_seasonal_background(c, current_month)
         
         # Draw tabs
         self.diary_gen.draw_month_tabs(c)
@@ -256,7 +256,7 @@ class PersonalInfoManager:
         colors = SeasonalTheme.get_colors(season)
         
         # Draw seasonal background
-        self.diary_gen.draw_seasonal_background(c, current_month)
+#        self.diary_gen.draw_seasonal_background(c, current_month)
         
         # Draw tabs
         self.diary_gen.draw_month_tabs(c)
@@ -295,7 +295,7 @@ class PersonalInfoManager:
         colors = SeasonalTheme.get_colors(season)
         
         # Draw seasonal background
-        self.diary_gen.draw_seasonal_background(c, current_month)
+#        self.diary_gen.draw_seasonal_background(c, current_month)
         
         # Draw tabs
         self.diary_gen.draw_month_tabs(c)
