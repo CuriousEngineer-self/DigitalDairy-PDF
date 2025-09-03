@@ -2,6 +2,8 @@
 __pycache__/
 *.py[codz]
 *$py.class
+# Generatd PDF
+*.pdf
 
 # C extensions
 *.so

@@ -19,6 +19,7 @@ from reportlab.lib.units import inch, mm
 import random
 
 from PasswordManager import get_secure_password_for_diary
+from PersonalInfoManager import PersonalInfoManager
 import os
 
 
@@ -426,6 +427,7 @@ class DiaryGenerator:
         self.quotes_used = set()
         self.holidays = get_us_holidays(year)
         self.background_gen = BackgroundGenerator()
+        self.personal_info_manager = PersonalInfoManager(self)
 
     def get_unique_quote(self):
         """Get a unique wisdom quote"""
@@ -479,6 +481,8 @@ class DiaryGenerator:
             if current_month != i + 1:  # Don't link to current page
                 # Create internal document link
                 c.linkRect("", f"month_{i+1}", (start_x, y, start_x + tab_width, y + tab_height))
+                if hasattr(self, 'personal_info_manager'):
+                    self.personal_info_manager.draw_personal_info_tab(c)
 
     def create_cover_page(self, c):
         """Create the cover page"""
@@ -817,10 +821,12 @@ class DiaryGenerator:
         print("Creating cover page with seasonal background...")
         self.create_cover_page(c)
 
+        print("Creating personal information pages...")
+        self.personal_info_manager.generate_all_personal_info_pages(c)
+
         # Create month pages
         for month in range(1, 13):
             season = SeasonalTheme.get_season(month)
-            print(f"Creating {season} themed page for {calendar.month_name[month]}...")
             self.create_month_page(c, month)
 
         # Create day pages
@@ -831,9 +837,12 @@ class DiaryGenerator:
             days_in_month = calendar.monthrange(self.year, month)[1]
             for day in range(1, days_in_month + 1):
                 day_count += 1
-                if day_count % 50 == 0:
-                    print(f"Creating day pages with seasonal backgrounds... ({day_count}/{total_days})")
+               # if day_count % 50 == 0:
+               #     print(f"Creating day pages with seasonal backgrounds... ({day_count}/{total_days})")
                 self.create_day_page(c, month, day)
+            # Add personal info pages
+                if hasattr(self, 'personal_info_manager'):
+                    self.personal_info_manager.generate_all_personal_info_pages(c)
 
         c.save()
         print(f"\n✨ Enhanced Diary generated successfully: {filename}")
